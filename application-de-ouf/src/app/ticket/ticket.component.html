@@ -1,0 +1,17 @@
+<ng-container *ngIf="!editionMode else edition">
+  <div class="ticket">
+      <img [src]="ticket.img" alt="pas d'image">
+      <h2>{{ ticket.title }}</h2>
+      <p>{{ ticket.description }}</p>
+      <p>Nombre de places restantes : {{ ticket.nbPlaces }}</p>
+      <input type="button" value="delete" (click)="triggerDelete()"/>
+      <input type="button" value="edit" (click)="goEdition()" />
+    </div>
+</ng-container>
+
+<ng-template #edition>
+  <div class="ticket">
+    <app-ticket-add [ticket]="ticket" (ticketSubmit)="triggerEdit($event)"></app-ticket-add>
+  </div>
+</ng-template>
+

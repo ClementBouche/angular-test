@@ -1,0 +1,11 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<ng-container *ngIf="logged else login">
+    <h2>Bienvenue {{ user.pseudo }} !</h2>
+    <input type="button" value="logout" (click)="logout()" />
+    <app-list-tickets></app-list-tickets>
+</ng-container>
+
+<ng-template #login>
+    <app-login (logged)="onLogged($event)"></app-login>
+</ng-template>

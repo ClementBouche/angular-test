@@ -1,0 +1,12 @@
+<h2>Login</h2>
+<form>
+    <input type="text" [(ngModel)]="form.username"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="admin">
+    <input type="password" [(ngModel)]="form.password"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="password">
+    <input type="submit" value="login" (click)="tryConnection()">
+</form>
+
+<p *ngIf="message">{{ message }}</p>
