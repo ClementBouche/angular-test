@@ -1,0 +1,18 @@
+<div class="list-billet">
+  
+    <h2>Ajouter un ticket</h2>
+    <app-ticket-add (ticketSubmit)="onAdd($event)"></app-ticket-add>
+    <mat-divider></mat-divider>
+
+    <h2>Liste de tickets</h2>
+    <mat-divider></mat-divider>
+
+    <ng-container *ngIf="tickets && tickets.length > 0">
+      <div *ngFor="let ticket of tickets">
+        <app-ticket [ticket]="ticket" (delete)="onDelete($event)" (edit)="onEdit($event)"></app-ticket>
+        <mat-divider></mat-divider>
+      </div>
+    </ng-container>
+  
+  </div>
+  

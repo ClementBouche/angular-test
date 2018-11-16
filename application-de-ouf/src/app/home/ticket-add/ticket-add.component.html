@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+  <div>
+    <span *ngIf="form.status === 'PENDING'">{{form.status}} image....</span>
+    <img *ngIf="isImageValid()" [src]="getImageValue()">
+  </div>
+
+  <h2>
+    <input formControlName="title" type="text">
+  </h2>
+
+  <span *ngIf="form.controls.title.dirty && !form.controls.title.valid">
+    <span *ngIf="form.controls.title.errors.required">Veuillez remplir un titre</span>
+  </span>
+  
+  <textarea formControlName="description" type="text"></textarea>
+
+  <input formControlName="img" type="text">
+  
+  <span *ngIf="form.controls.img.dirty && !form.controls.img.valid && form.controls.img.errors">
+    <span *ngIf="form.controls.img.errors.url">{{ form.controls.img.errors.url.reason }}</span>
+    <span *ngIf="form.controls.img.errors.resource">Le lien ne pointe pas vers une adresse valide</span>
+  </span>
+
+  <input formControlName="rating" type="range">
+  <div>
+    <label>Nombre de place restantes :</label>
+    <input formControlName="nbPlaces" type="number">
+  </div>
+  <button [disabled]="!form.valid" type="submit">{{ buttonMessage }}</button>
+  
+</form>
+<!-- 
+<ng-container *ngIf="newTicket">
+  <div>{{ newTicket.title }}</div>
+  <div>{{ newTicket.description }}</div>
+  <div>{{ newTicket.img }}</div>
+  <div>{{ newTicket.rating }}</div>
+  <div>{{ newTicket.nbPlaces }}</div>
+</ng-container>
+-->
