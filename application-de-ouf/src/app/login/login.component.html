@@ -1,12 +1,24 @@
-<h2>Login</h2>
-<form>
-    <input type="text" [(ngModel)]="form.username"
-        [ngModelOptions]="{standalone: true}"
-        placeholder="admin">
-    <input type="password" [(ngModel)]="form.password"
-        [ngModelOptions]="{standalone: true}"
-        placeholder="password">
-    <input type="submit" value="login" (click)="tryConnection()">
-</form>
+<mat-card>
 
-<p *ngIf="message">{{ message }}</p>
+    <h2>Bienvenue sur Application de Ouf</h2>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput [(ngModel)]="form.username"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Login" type="text">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+            <input matInput [(ngModel)]="form.password"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Password" type="password">
+        </mat-form-field>
+      
+        <button mat-raised-button (click)="tryConnection()" type="submit">
+            Go !
+        </button>
+    </form>
+    
+    <span *ngIf="message">{{ message }}</span>
+
+</mat-card>

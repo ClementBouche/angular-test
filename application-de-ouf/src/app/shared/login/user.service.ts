@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+
 import { User } from '../model/user.model';
 import { ApiHelperService } from '../http/api-helper.service';
 
@@ -6,6 +7,10 @@ import { ApiHelperService } from '../http/api-helper.service';
   providedIn: 'root'
 })
 export class UserService {
+
+  user: User;
+
+  logged$ = new EventEmitter<User>();
 
   constructor(
     private apiHelper: ApiHelperService
@@ -22,11 +27,29 @@ export class UserService {
             data.response.user['rol']
           );
           console.log(user);
+          this.setUser(user);
+          this.logged$.emit(this.user);
           return user;
         } else {
           throw Error('Impossible de parser la réponse');
         }
       });
+  }
+
+  logout(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      resolve(true);
+    });
+  }
+
+  // stocke l'user courant
+  // todo localstorage
+  setUser(user: User) {
+    this.user = user;
+  }
+
+  getUser() {
+    return this.user;
   }
 
 }

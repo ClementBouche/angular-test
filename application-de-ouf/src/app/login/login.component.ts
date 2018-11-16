@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/model/user.model';
 import { UserService } from '../shared/login/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +9,6 @@ import { UserService } from '../shared/login/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  @Output() logged = new EventEmitter<User>();
 
   form = {
     username: 'admin',
@@ -19,7 +18,9 @@ export class LoginComponent implements OnInit {
   message: string;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -28,11 +29,13 @@ export class LoginComponent implements OnInit {
 
   tryConnection() {
     console.log(this.form);
+
     this.userService.login(this.form.username, this.form.password)
       .then((user) => {
         console.log('Login Component - then', user);
+        this.userService.setUser(user);
         this.message = '';
-        this.logged.emit(user);
+        this.router.navigate(['./home']);
         console.log('login success');
       })
       .catch((error) => {
